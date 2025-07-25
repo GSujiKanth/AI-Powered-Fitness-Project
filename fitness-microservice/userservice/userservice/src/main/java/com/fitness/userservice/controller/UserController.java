@@ -27,7 +27,7 @@ public class UserController {
     //create user profile
     //@RequestBody - accept the request in certain format
     //@valid - validations will be validated, when the requests hit the controller
-    @GetMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request){
         return ResponseEntity.ok(userService.register(request));
     }
