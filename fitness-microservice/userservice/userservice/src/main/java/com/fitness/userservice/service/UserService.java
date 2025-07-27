@@ -53,4 +53,9 @@ public class UserService {
 
         return userResponse;
     }
+
+    //validate user by id - for ActivityService
+    public Boolean existByUserId(String userId) {
+        return repository.existsById(userId);
+    }
 }
