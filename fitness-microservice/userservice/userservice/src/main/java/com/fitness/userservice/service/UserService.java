@@ -14,20 +14,35 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    // If the user is existed, it is going to return the existing user.
+    // if the user no exist, it’s going to create a user.
     public UserResponse register(RegisterRequest request) {
         //validations
         if (repository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exist");
+            User existingUser = repository.findByEmail(request.getEmail());
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(existingUser.getId());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+            return userResponse;
         }
 
+        // data for saving a new user
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+        user.setKeycloakId(request.getKeycloakId());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
 
         User savedUser = repository.save(user);
         UserResponse userResponse = new UserResponse();
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
         userResponse.setId(savedUser.getId());
         userResponse.setPassword(savedUser.getPassword());
         userResponse.setEmail(savedUser.getEmail());
@@ -58,6 +73,6 @@ public class UserService {
     //validate user by id - for ActivityService
     public Boolean existByUserId(String userId) {
         log.info("Calling User Validation API for userId: {}", userId);
-        return repository.existsById(userId);
+        return repository.existsByKeycloakId(userId);
     }
 }
