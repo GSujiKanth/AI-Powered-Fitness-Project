@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const authSlice = createSlice({
   name: 'auth',
   initialState : {
+    //store the initial state in local browser
     user: JSON.parse(localStorage.getItem('user')) || null,
     token: localStorage.getItem('token') || null,
     userId: localStorage.getItem('userId') || null
@@ -10,7 +11,7 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       //update the redux state and local storage when credentials are set
-      state.user = action.payload.user;
+      state.user = action.payload.user; // user and payload both are being sent together
       state.token = action.payload.token;
       state.userId = action.payload.user.sub;
 

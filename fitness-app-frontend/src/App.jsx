@@ -11,9 +11,11 @@ function App() {
   const [authReady, setAuthReady] = useState(false);
   
   // when token, tokenData, dispatch changes, it will be executed.
+  // dispatch make sure runs on the first loading
   // if there is token, set the credentials and update in redux store
   useEffect(() => {
     if(token) {
+      //  user and token both are being sent
       dispatch(setCredentials({token, user: tokenData}));
       setAuthReady(true);
     }
