@@ -1,6 +1,7 @@
 import { Button, FormControl, MenuItem, TextField, Select, InputLabel } from '@mui/material';
 import React, { useState } from 'react'
 import { Box } from '@mui/material';
+import { addActivity } from '../services/api';
 
 const ActivityForm = ({ onActivityAdded }) => {
   // define the initial state of the form
@@ -12,11 +13,11 @@ const ActivityForm = ({ onActivityAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //await addActivity(activity); // call the api to save the activity
+      await addActivity(activity); // call the api to save the activity
       onActivityAdded(); // function to notify the parent component that new activity has been added
       setActivity({type: "RUNNING", duration: '', caloriesBurned: ''}); // resetting the form
     } catch (error) {
-
+      console.error(error);
     }
   }
 
