@@ -15,7 +15,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.userId = action.payload.user.sub;
 
-      localStorage.setItem('token', action.payload.user);
+      localStorage.setItem('token', action.payload.token);
       localStorage.setItem('user', JSON.stringify(action.payload.user));  //user info is token decoded, it has to stringify
       localStorage.setItem('userId', action.payload.user.sub);
     },

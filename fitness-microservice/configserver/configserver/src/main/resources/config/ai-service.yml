@@ -16,6 +16,8 @@ eureka:
   client:
     serviceURL:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
 rabbitmq:
   exchange:
