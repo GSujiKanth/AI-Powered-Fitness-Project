@@ -28,10 +28,6 @@ public class KeycloakUserSyncFilter implements WebFilter {
         String userId = exchange.getRequest().getHeaders().getFirst("X-User-ID");
         RegisterRequest registerRequest = getUserDetails(token);
 
-        System.out.println("[DEBUG] Token"+ token);
-        System.out.println("[DEBUG] User ID"+ userId);
-        System.out.println("[DEBUG] Request"+ registerRequest);
-
         if (userId == null) {
             userId = registerRequest.getKeycloakId();
             System.out.println("[DEBUG] User ID"+ userId);
